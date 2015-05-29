@@ -5,6 +5,11 @@
  */
 package com.my.comment.application;
 
+import com.google.inject.Binder;
+import com.google.inject.Guice;
+import com.google.inject.Module;
+import com.my.comment.redis.RedisSession;
+import com.my.comment.redis.impl.RedisSessionImpl;
 import com.my.comment.resource.CommentResource;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +23,15 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("resources")
 public class CommentApplication extends Application{
 
+//    static {
+//        Guice.createInjector(new Module() {
+//
+//            @Override
+//            public void configure(Binder binder) {
+//                binder.bind(RedisSession.class).to(RedisSessionImpl.class);
+//            }
+//        }).getInstance(RedisSession.class);
+//    }
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> s = new HashSet<>();

@@ -5,6 +5,9 @@
  */
 package com.my.comment.resource;
 
+import com.google.inject.Inject;
+import com.my.comment.redis.RedisSession;
+import com.my.comment.redis.impl.RedisSessionImpl;
 import com.my.comment.response.Comment;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -23,11 +26,15 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CommentResource {
     
+    RedisSession redisSession = new RedisSessionImpl();
+    
     @GET
     public Comment getComment(@PathParam("commentId") String commentId) {
         Comment comment = new Comment();
         comment.setId("1000");
-        comment.setValue("Hello Comment");
+        
+        String value = redisSession.getData(commentId);
+        comment.setValue("Hello Comment" + value);
         comment.setTimestamp(System.currentTimeMillis()/1000);
         
         return comment;
@@ -36,6 +43,7 @@ public class CommentResource {
     @PUT
     public String updateComment(@PathParam("commentId") String commentId, 
             Comment comment) {
+        
         return null;
     }
 }

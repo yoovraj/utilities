@@ -5,6 +5,9 @@
  */
 package com.my.comment.response;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author yoovrajshinde
@@ -38,6 +41,20 @@ public class Comment {
         this.timestamp = timestamp;
     }
 
+    public Map<String, String> getValueMap() {
+        Map<String, String> valueMap = new HashMap<>();
+        valueMap.put("id", id);
+        valueMap.put("value" , value);
+        valueMap.put("timestamp", timestamp.toString());
+        return valueMap;
+    }
+    
+    public Comment setValueMap(Map<String, String> valueMap) {
+        id = valueMap.get("id");
+        value = valueMap.get("value");
+        timestamp = Long.valueOf(valueMap.get("timestamp"));
+        return this;
+    }
     @Override
     public String toString() {
         return "Comment{" + "id=" + id + ", value=" + value + ", timestamp=" + timestamp + '}';
