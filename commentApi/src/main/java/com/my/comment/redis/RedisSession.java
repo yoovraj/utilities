@@ -7,6 +7,7 @@ package com.my.comment.redis;
 
 import com.google.inject.ImplementedBy;
 import com.my.comment.redis.impl.RedisSessionImpl;
+import com.my.comment.response.Comment;
 
 /**
  *
@@ -15,5 +16,8 @@ import com.my.comment.redis.impl.RedisSessionImpl;
 @ImplementedBy(RedisSessionImpl.class)
 public interface RedisSession {
     public String getData(String key);
+    public Comment getCommentData(String key);
+    public void putCommentData (String key, Comment comment);
+    public void deleteCommentData(String key);
 
 }

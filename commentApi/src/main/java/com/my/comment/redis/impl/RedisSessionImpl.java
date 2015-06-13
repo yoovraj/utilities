@@ -29,18 +29,26 @@ public class RedisSessionImpl implements RedisSession{
         }
         return value;
     }
+    @Override
     public Comment getCommentData(String key) {
         Map<String, String> valueMap;
         try (Jedis jedis = pool.getResource()) {
             valueMap = jedis.hgetAll(key);
         }
-        return new Comment().setValueMap(valueMap);
+        return new Comment().valueMap(valueMap);
     }
     
+    @Override
     public void putCommentData (String key, Comment comment) {
         try (Jedis jedis = pool.getResource()) {
-            jedis.hmset(key, comment.getValueMap());
+            jedis.hmset(key, comment.generateValueMap());
         }
     }
     
+    @Override
+    public void deleteCommentData(String key) {
+        try (Jedis jedis = pool.getResource()) {
+            jedis.del(key);
+        }
+    }
 }
