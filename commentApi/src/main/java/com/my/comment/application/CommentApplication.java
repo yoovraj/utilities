@@ -5,11 +5,6 @@
  */
 package com.my.comment.application;
 
-import com.google.inject.Binder;
-import com.google.inject.Guice;
-import com.google.inject.Module;
-import com.my.comment.redis.RedisSession;
-import com.my.comment.redis.impl.RedisSessionImpl;
 import com.my.comment.resource.CommentResource;
 import java.util.HashSet;
 import java.util.Set;

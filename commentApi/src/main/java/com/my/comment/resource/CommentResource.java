@@ -19,6 +19,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import net.arnx.jsonic.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -29,6 +31,7 @@ public class CommentResource {
     @Inject
     RedisSession redisSession = Guice.createInjector().getInstance(RedisSession.class);
     
+    static final Logger LOG = LoggerFactory.getLogger(CommentResource.class);
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Comment getComment(@PathParam("commentId") String commentId) {
@@ -40,7 +43,7 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Comment updateComment(@PathParam("commentId") String commentId, 
            String commentString) {
-        System.out.println("updateComment");
+        LOG.info("updateComment {}", commentId);
         Comment comment = JSON.decode(commentString, Comment.class);
         redisSession.putCommentData(commentId, comment);
         return comment;
@@ -49,7 +52,7 @@ public class CommentResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteComment(@PathParam("commentId") String commentId) {
-        System.out.println("Deleting comment");
+        LOG.info("Deleting comment {}", commentId);
         redisSession.deleteCommentData(commentId);
         return new Response("SUCCESS");
     }
